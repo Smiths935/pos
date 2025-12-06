@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { EditIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface Role {
+export interface Role {
   id: string;
   name: string;
   description: string;

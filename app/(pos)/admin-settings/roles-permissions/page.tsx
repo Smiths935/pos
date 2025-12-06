@@ -4,13 +4,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import RoleFilterBar from "./_components/role-filter-bar";
-import RoleTable from "@/components/data-table/role-table";
+import RoleTable, { Role } from "@/components/data-table/role-table";
 import HeadSectionPage from "@/components/headSectionPage";
 import { PlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 // Données simulées — à remplacer par un appel API
-const mockRoles = [
+const mockRoles: Role[] = [
   {
     id: "r_1",
     name: "Administrateur du système",
@@ -72,7 +72,7 @@ export default function RolesPermissionsPage() {
       .querySelector(
         'input[placeholder="Recherche par nom de rôle ou description..."]'
       )
-      ?.focus();
+      // ?.focus();
   };
 
   // Filtrer les rôles

@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { EditIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;

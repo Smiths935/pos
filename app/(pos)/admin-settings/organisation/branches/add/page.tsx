@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 // src/app/settings/organization/branches/add/page.tsx
 "use client";
 
@@ -265,7 +266,9 @@ export default function AddBranchPage() {
             "vendredi",
             "samedi",
             "dimanche",
-          ].map((day) => (
+          ].map((day) => {
+            const dayKey = day as "lundi" | "mardi" | "mercredi" | "jeudi" | "vendredi" | "samedi" | "dimanche";
+            return (
             <div
               key={day}
               className="flex items-center space-x-8"
@@ -278,9 +281,9 @@ export default function AddBranchPage() {
               <input
                 type="checkbox"
                 id={`${day}-open`}
-                checked={formData.hours[day].open}
+                checked={formData.hours[dayKey].open}
                 onChange={(e) =>
-                  handleHourChange(day, "open", String(e.target.checked))
+                  handleHourChange(dayKey, "open", String(e.target.checked))
                 }
               />
               <label htmlFor={`${day}-open`} className="text-sm">
@@ -288,19 +291,20 @@ export default function AddBranchPage() {
               </label>
               <Input
                 type="time"
-                value={formData.hours[day].start}
-                onChange={(e) => handleHourChange(day, "start", e.target.value)}
+                value={formData.hours[dayKey].start}
+                onChange={(e) => handleHourChange(dayKey, "start", e.target.value)}
                 className="w-fit p-2"
               />
               <span>à</span>
               <Input
                 type="time"
-                value={formData.hours[day].end}
-                onChange={(e) => handleHourChange(day, "end", e.target.value)}
+                value={formData.hours[dayKey].end}
+                onChange={(e) => handleHourChange(dayKey, "end", e.target.value)}
                 className="w-fit p-2"
               />
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

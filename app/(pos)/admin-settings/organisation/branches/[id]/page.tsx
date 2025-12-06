@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
@@ -113,7 +114,7 @@ export default function EditBranchPage() {
       ...prev,
       hours: {
         ...prev.hours,
-        [day]: { ...prev.hours[day], [field]: value },
+        [day]: { ...prev.hours[day as keyof typeof prev.hours], [field]: value },
       },
     }));
   };
@@ -306,7 +307,7 @@ export default function EditBranchPage() {
                 <input
                   type="checkbox"
                   id={`${day}-open`}
-                  checked={formData.hours[day].open}
+                  checked={formData.hours[day as keyof typeof formData.hours].open}
                   onChange={(e) =>
                     handleHourChange(day, "open", String(e.target.checked))
                   }
@@ -317,14 +318,14 @@ export default function EditBranchPage() {
               </div>
               <Input
                 type="time"
-                value={formData.hours[day].start}
+                value={formData.hours[day as keyof typeof formData.hours].start}
                 onChange={(e) => handleHourChange(day, "start", e.target.value)}
                 className="w-fit p-2"
               />
               <span>à</span>
               <Input
                 type="time"
-                value={formData.hours[day].end}
+                value={formData.hours[day as keyof typeof formData.hours].end}
                 onChange={(e) => handleHourChange(day, "end", e.target.value)}
                 className="w-fit p-2"
               />

@@ -38,6 +38,8 @@ export default function MenuItemsTable({
     const aValue = a[sortConfig.key as keyof MenuItem];
     const bValue = b[sortConfig.key as keyof MenuItem];
 
+    if (aValue === undefined || bValue === undefined) return 0;
+
     if (aValue < bValue) {
       return sortConfig.direction === 'asc' ? -1 : 1;
     }

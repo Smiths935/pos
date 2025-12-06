@@ -97,7 +97,8 @@ export default function IngredientsPage() {
     setSearchQuery("");
     setCategory("all");
     // Réinitialise aussi l'input de recherche
-    document.querySelector('input[placeholder="Recherche par nom, référence ou nom localisé..."]')?.focus();
+    document.querySelector('input[placeholder="Recherche par nom, référence ou nom localisé..."]')
+    // ?.focus();
   };
 
   // Filtrer les ingrédients

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ArrowLeft } from "lucide-react";
 // Simule le chargement des données par ID
@@ -5,7 +6,18 @@ import { ArrowLeft } from "lucide-react";
 import MenuItemForm from "../add/_form/menu-item-form";
 
 // Dans la réalité, tu ferais un fetch vers /api/menu/items/{id}
-const mockItem = {
+const mockItem: {
+  id: string;
+  name: string;
+  basePrice: number;
+  description: string;
+  imageUrl: string;
+  isSeasonal: boolean;
+  category: string;
+  dietaryLabels: string[];
+  status: "active" | "inactive";
+  availability: "all" | "none" | "selected";
+} = {
   id: "m_1",
   name: "Classic Burger",
   basePrice: 12.99,

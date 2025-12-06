@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+
 "use client";
 
-import OrderTable from "@/components/data-table/order-table";
+import OrderTable, { Order } from "@/components/data-table/order-table";
 import { useState } from "react";
 import OrderFilterBar from "../_components/order-filter-bar";
 import { Button } from "@/components/ui/button";
 
 // Données simulées — à remplacer par un appel API
-const mockOrders = [
+const mockOrders: Order[] = [
   {
     id: "o_1",
     number: "#1001",
@@ -142,7 +143,8 @@ export default function page() {
     setStatus("all");
     setType("all");
     // Réinitialise aussi l'input de recherche
-    document.querySelector('input[placeholder="Recherche par numéro de commande ou client..."]')?.focus();
+    document.querySelector('input[placeholder="Recherche par numéro de commande ou client..."]')
+    // ?.focus();
   };
 
   // Filtrer les commandes

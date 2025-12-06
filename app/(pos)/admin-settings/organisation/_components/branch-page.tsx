@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
@@ -88,7 +89,7 @@ export default function BranchPage() {
     // Réinitialise aussi l'input de recherche
     document
       .querySelector('input[placeholder="Rechercher des succursales..."]')
-      ?.focus();
+      // ?.focus();
   };
 
   // Filtrer les branches
@@ -135,7 +136,8 @@ export default function BranchPage() {
 
       {/* Tableau */}
       <BranchTable
-        branches={filteredBranches}
+        // branches={filteredBranches}
+        branches={'zffzf' as any}
         onEdit={handleEditBranch}
         onDelete={handleDeleteBranch}
       />

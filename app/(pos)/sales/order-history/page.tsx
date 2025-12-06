@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import HeadSectionPage from "@/components/headSectionPage";
@@ -5,11 +6,11 @@ import { FileDown, PrinterIcon } from "lucide-react";
 
 import { useState } from "react";
 import OrderHistoryFilterBar from "../_components/order-history-filter-bar";
-import OrderHistoryTable from "@/components/data-table/order-history-table";
+import OrderHistoryTable, { Order } from "@/components/data-table/order-history-table";
 import { Button } from "@/components/ui/button";
 
 // Données simulées — à remplacer par un appel API
-const mockOrders = [
+const mockOrders: Order[] = [
   {
     id: "o_1",
     number: "#ORD78901",
@@ -114,7 +115,8 @@ export default function OrderHistoryPage() {
     setType("all");
     setBranch("all");
     // Réinitialise aussi l'input de recherche
-    document.querySelector('input[placeholder="Recherche par numéro de commande ou client..."]')?.focus();
+    document.querySelector('input[placeholder="Recherche par numéro de commande ou client..."]')
+    // ?.focus();
   };
 
   // Filtrer les commandes

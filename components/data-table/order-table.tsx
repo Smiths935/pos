@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 
-interface Order {
+export interface Order {
   id: string;
   number: string;
   client: string;

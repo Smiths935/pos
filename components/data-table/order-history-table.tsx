@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { EyeIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface Order {
+export interface Order {
   id: string;
   number: string;
   client: string;

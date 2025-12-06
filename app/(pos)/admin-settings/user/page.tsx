@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import HeadSectionPage from '@/components/headSectionPage'
 import { Plus, UserPlus } from 'lucide-react'
@@ -7,10 +8,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import UserFilterBar from './_components/user-filter-bar';
 import { Button } from '@/components/ui/button';
-import UserTable from '@/components/data-table/user-table';
+import UserTable, { User } from '@/components/data-table/user-table';
 
 // Données simulées — à remplacer par un appel API
-const mockUsers = [
+const mockUsers: User[] = [
   {
     id: "user1",
     name: "Peter Bryan",
@@ -100,7 +101,8 @@ export default function UsersPage() {
     setBranch("all");
     setStatus("all");
     // Réinitialise aussi l'input de recherche
-    document.querySelector('input[placeholder="Recherche par nom ou par courriel..."]')?.focus();
+    document.querySelector('input[placeholder="Recherche par nom ou par courriel..."]')
+    // ?.focus();
   };
 
   // Filtrer les utilisateurs
