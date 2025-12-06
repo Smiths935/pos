@@ -140,14 +140,12 @@ export default function IngredientsPage() {
       />
       </div>
 
-      {/* Barre de filtres */}
         <IngredientFilterBar
           onSearch={handleSearch}
           onCategoryChange={handleCategoryChange}
           onReset={handleReset}
         />
 
-      {/* Tableau */}
       <IngredientTable
         ingredients={filteredIngredients}
         onEdit={handleEditIngredient}
