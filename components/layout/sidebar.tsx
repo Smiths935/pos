@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -97,7 +98,7 @@ export default function Sidebar() {
         {/* Header */}
         <div className="p-4 border-b">
           <div className="flex items-center gap-2">
-            <img src="/logoIT1bg.png" alt="Logo" className="h-8 w-8 rounded-md" />
+            <Image src="/logoIT1bg.png" alt="Logo" width={32} height={32} className="rounded-md" />
             <h1 className="text-xl font-bold">MyPOS</h1>
           </div>
         </div>

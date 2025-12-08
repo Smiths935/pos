@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { EditIcon, TrashIcon } from "lucide-react";
@@ -114,7 +115,7 @@ export default function MenuItemsTable({
             >
               <TableCell className="font-medium flex items-center gap-2">
                 {item.imageUrl ? (
-                  <img src={item.imageUrl} alt={item.name} className="h-8 w-8 rounded-full object-cover" />
+                  <Image src={item.imageUrl} alt={item.name} width={32} height={32} className="rounded-full object-cover" />
                 ) : (
                   <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600">
                     {item.name.slice(0, 2).toUpperCase()}

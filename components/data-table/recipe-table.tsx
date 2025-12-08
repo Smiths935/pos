@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { EditIcon, TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Recipe {
   id: string;
@@ -59,7 +60,7 @@ export default function RecipeTable({
             >
               <TableCell className="font-medium flex items-center gap-2">
                 {recipe.imageUrl ? (
-                  <img src={recipe.imageUrl} alt={recipe.name} className="h-8 w-8 rounded-full object-cover" />
+                  <Image src={recipe.imageUrl} alt={recipe.name} width={32} height={32} className="rounded-full object-cover" />
                 ) : (
                   <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600">
                     {recipe.name.slice(0, 2).toUpperCase()}
