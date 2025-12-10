@@ -1,195 +1,141 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, LogOut, ChevronDown, ChevronRight } from "lucide-react";
+import { logout } from "@/lib/auth";
+import { roleMenus, MenuItem } from "@/lib/permissions";
 
-import {
-  ChevronRight,
-  LayoutDashboard,
-  ShoppingBag,
-  Menu as MenuIcon,
-  Award,
-  PackageSearch,
-  Trash2,
-  ShoppingCart,
-  Settings,
-} from "lucide-react";
-
-import { cn } from "@/lib/utils";
-
-export default function Sidebar() {
-  const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
-  // Menu items with lucide icons
-  const menuItems = [
-    {
-      title: "Tableau de bord",
-      href: "/dashboard",
-      icon: <LayoutDashboard className="h-5 w-5" />,
-      submenu: [],
-    },
-    {
-      title: "Ventes",
-      icon: <ShoppingBag className="h-5 w-5" />,
-      submenu: [
-        { title: "Point de vente", href: "/sales/pos" },
-        { title: "Commandes en direct", href: "/sales/live-order" },
-        { title: "Historique des commandes", href: "/sales/order-history" },
-        // { title: "Rapports", href: "/sales/reports" },
-      ],
-    },
-    {
-      title: "Gestion des menus",
-      icon: <MenuIcon className="h-5 w-5" />,
-      submenu: [
-        { title: "Catégories", href: "/menu-management/categories" },
-        { title: "Recettes", href: "/menu-management/recipes" },
-        { title: "Plans de repas", href: "/menu-management/menu" },
-      ],
-    },
-    {
-      title: "Inventaire",
-      icon: <PackageSearch className="h-5 w-5" />,
-      submenu: [
-        { title: "Aperçu des actions", href: "/inventory/stock-overview" },
-        { title: "Ingrédients", href: "/inventory/ingredient-items" },
-        { title: "Rapports", href: "/inventory/inventory-rapport" },
-      ],
-    },
-    // {
-    //   title: "Gestion des déchets",
-    //   icon: <Trash2 className="h-5 w-5" />,
-    //   submenu: [],
-    // },
-    // {
-    //   title: "Achat",
-    //   icon: <ShoppingCart className="h-5 w-5" />,
-    //   submenu: [],
-    // },
-    {
-      title: "Paramètres",
-      icon: <Settings className="h-5 w-5" />,
-      submenu: [
-        { title: "Organisation", href: "/admin-settings/organisation" },
-        { title: "Utilisateurs", href: "/admin-settings/user" },
-        { title: "Rôles et permissions", href: "/admin-settings/roles-permissions" },
-      ],
-    },
-  ];
-
-  return (
-    <aside
-      className={`fixed md:static inset-y-0 left-0 z-50 w-64 md:w-72 h-screen bg-background border-r transition-all duration-300 ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } md:translate-x-0`}
-    >
-      <div className="flex flex-col h-full">
-        {/* Header */}
-        <div className="p-4 border-b">
-          <div className="flex items-center gap-2">
-            <Image src="/logoIT1bg.png" alt="Logo" width={32} height={32} className="rounded-md" />
-            <h1 className="text-xl font-bold">MyPOS</h1>
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 p-4">
-          <ul className="space-y-2">
-            {menuItems.map((item) => (
-              <li key={item.title}>
-                {item.submenu.length > 0 ? (
-                  <Collapsible>
-                    <CollapsibleTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className={cn(
-                          "w-full justify-start gap-2",
-                          pathname.startsWith(item.href || "")
-                            ? "bg-muted"
-                            : ""
-                        )}
-                      >
-                        {item.icon}
-                        {item.title}
-                        <ChevronRight className="ml-auto h-4 w-4" />
-                      </Button>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <ul className="ml-6 mt-2 space-y-1">
-                        {item.submenu.map((subItem) => (
-                          <li key={subItem.href}>
-                            <Link href={subItem.href}>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className={cn(
-                                  "w-full justify-start",
-                                  pathname === subItem.href ? "bg-muted" : ""
-                                )}
-                              >
-                                {subItem.title}
-                              </Button>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </CollapsibleContent>
-                  </Collapsible>
-                ) : (
-                 // <Link href={item.href}>
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start gap-2",
-                      pathname === item.href ? "bg-muted" : ""
-                    )}
-                  >
-                    {item.icon}
-                    {item.title}
-                  </Button>
-                // </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Footer */}
-        <div className="p-4 border-t">
-          <Button variant="outline" className="w-full">
-            Se déconnecter
-          </Button>
-        </div>
-      </div>
-
-      {/* Overlay mobile */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={toggleSidebar}
-        ></div>
-      )}
-
-      {/* Bouton hamburger mobile */}
-      <Button
-        className="md:hidden fixed bottom-4 left-4 z-50 p-3 rounded-full bg-primary text-white shadow-lg"
-        onClick={toggleSidebar}
-      >
-        <MenuIcon className="h-6 w-6" />
-      </Button>
-    </aside>
-  );
+interface SidebarProps {
+  user: { role: string; name: string; email: string };
+  currentPath: string;
 }
 
-                
+export default function Sidebar({ user, currentPath }: SidebarProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const menuItems = roleMenus[user?.role] || [];
+
+  const toggleMenu = (menuId: string) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [menuId]: !prev[menuId],
+    }));
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/login");
+  };
+
+  const isActiveLink = (path: string) => pathname === path;
+
+  const renderMenuItem = (item: MenuItem) => {
+    const Icon = item.icon;
+    const hasSubmenus = item.submenus && item.submenus.length > 0;
+    const isActive = item.path
+      ? isActiveLink(item.path)
+      : item.submenus?.some((sub) => isActiveLink(sub.path!));
+
+    if (!hasSubmenus) {
+      return (
+        <Link
+          key={item.id}
+          href={item.path!}
+          className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+            isActive
+              ? "bg-orange-500 text-white"
+              : "text-gray-300 hover:bg-gray-700"
+          }`}
+        >
+          <Icon size={20} />
+          {sidebarOpen && (
+            <span className="font-medium flex-1 text-left">{item.label}</span>
+          )}
+        </Link>
+      );
+    }
+
+    return (
+      <div key={item.id}>
+        <button
+          onClick={() => toggleMenu(item.id)}
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+            isActive
+              ? "bg-orange-500 text-white"
+              : "text-gray-300 hover:bg-gray-700"
+          }`}
+        >
+          <Icon size={20} />
+          {sidebarOpen && (
+            <>
+              <span className="font-medium flex-1 text-left">{item.label}</span>
+              {openMenus[item.id] ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              )}
+            </>
+          )}
+        </button>
+
+        {sidebarOpen && openMenus[item.id] && (
+          <div className="ml-4 mt-1 space-y-1">
+            {item.submenus!.map((submenu) => {
+              const SubIcon = submenu.icon;
+              return (
+                <Link
+                  key={submenu.id}
+                  href={submenu.path!}
+                  className={`flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition ${
+                    isActiveLink(submenu.path!)
+                      ? "bg-orange-600 text-white"
+                      : "text-gray-400 hover:bg-gray-700 hover:text-white"
+                  }`}
+                >
+                  <SubIcon size={16} />
+                  <span>{submenu.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className={`${
+        sidebarOpen ? "w-64" : "w-20"
+      } bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300 flex flex-col`}
+    >
+      <div className="p-6 flex items-center justify-between border-b border-gray-700">
+        {sidebarOpen && <h1 className="text-xl font-bold">RestaurantPro</h1>}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2 hover:bg-gray-700 rounded-lg transition"
+        >
+          {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        {menuItems.map(renderMenuItem)}
+      </nav>
+
+      <div className="p-4 border-t border-gray-700">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white transition"
+        >
+          <LogOut size={20} />
+          {sidebarOpen && <span className="font-medium">Déconnexion</span>}
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -18,9 +18,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "MyPOS",
-  description: "POS pour restaurant, bar et lounge",
-};
+  title: 'RestaurantPro - Gestion de Restaurant',
+  description: 'Application de gestion complète pour restaurants',
+}
 
 export default function RootLayout({
   children,
