@@ -1,7 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-// src/components/ui/cards/pos-dashboard-cards.tsx
 "use client";
 
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
@@ -30,12 +29,14 @@ export default function PosDashboardCard({
     >
       <CardHeader>
         <div className="relative h-48 w-full overflow-hidden rounded-lg">
-          <img
+          <Image
             src={imageUrl}
             alt={title}
-            className="h-full w-full object-cover"
+            fill
+            // sizes="" // adapte selon ton layout
+            className="object-cover"
+            priority={false} // true si tu veux que l'image se charge en priorité
           />
-        
         </div>
       </CardHeader>
       <CardContent className="space-y-2">
