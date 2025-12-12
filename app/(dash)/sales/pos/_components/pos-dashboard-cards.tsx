@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
 
 interface PosCardProps {
@@ -12,6 +11,7 @@ interface PosCardProps {
   link: string;
   target?: "_blank" | "_self";
   className?: string;
+  placeholderUrl?: string; // optionnel pour le blur
 }
 
 export default function PosDashboardCard({
@@ -21,21 +21,24 @@ export default function PosDashboardCard({
   link,
   target = "_self",
   className = "",
+  placeholderUrl,
 }: PosCardProps) {
   return (
     <Card
-      className={`hover:bg-card/80 transition-colors cursor-pointer ${className}`}
+      className={`hover:bg-card/80 transition-colors cursor-pointer pt-0 ${className}`}
       onClick={() => window.open(link, target)}
     >
-      <CardHeader>
-        <div className="relative h-48 w-full overflow-hidden rounded-lg">
+      <CardHeader className=" p-0 pt-0">
+        <div className="relative h-32 md:h-48 w-full overflow-hidden rounded-t-lg bg-gray-200">
           <Image
             src={imageUrl}
             alt={title}
             fill
-            // sizes="" // adapte selon ton layout
+            sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
-            priority={false} // true si tu veux que l'image se charge en priorité
+            placeholder={placeholderUrl ? "blur" : "empty"}
+            blurDataURL={placeholderUrl} // petite image floue
+            priority={false} 
           />
         </div>
       </CardHeader>
